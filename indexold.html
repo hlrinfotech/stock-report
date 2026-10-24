@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Export Table to PDF</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- jsPDF AutoTable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <h2>Table Export Example</h2>
+
+  <table id="myTable" border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>John</td><td>25</td><td>New York</td></tr>
+      <tr><td>Alice</td><td>30</td><td>London</td></tr>
+      <tr><td>David</td><td>28</td><td>Paris</td></tr>
+    </tbody>
+  </table>
+
+  <br>
+  <button id="downloadPdf">Download PDF</button>
+
+  <script>
+    $("#downloadPdf").click(function () {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.text("Table Export Example", 14, 10);
+      doc.autoTable({
+        html: "#myTable",   // get table by id
+        startY: 20,
+        theme: "grid"       // style: grid, strip, plain
+      });
+
+      doc.save("table.pdf");  // download pdf
+    });
+  </script>
+</body>
+</html>
